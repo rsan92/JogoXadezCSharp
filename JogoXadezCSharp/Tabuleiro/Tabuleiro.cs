@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Tabuleiro.Exceptions;
 
 namespace Tabuleiro
 {
@@ -24,10 +20,41 @@ namespace Tabuleiro
             return pecas[linha, coluna];
         }
 
+        public Peca getPeca(Posicao pos)
+        {
+            return pecas[pos.Linha, pos.Coluna];
+        }
+
         public void setPeca(Peca p, Posicao pos)
         {
+            if (existePeca(pos)) {
+                throw new PosicaoInvalidaException("Já existe uma peça nessa posição.");
+            }
             pecas[pos.Linha, pos.Coluna] = p;
             p.posicao = pos;
+        }
+
+        public bool posicaoValida(Posicao pos)
+        {
+            if (pos.Linha < 0 || pos.Linha > linhas || pos.Coluna < 0 || pos.Coluna > colunas)
+            {
+                return false;
+            }
+            return true;
+            
+        }
+
+        public bool existePeca(Posicao pos)
+        {
+            validarPosicao(pos);
+            return getPeca(pos) != null;
+        }
+
+        public void validarPosicao(Posicao pos)
+        {
+            if (!posicaoValida(pos)){
+                throw new PosicaoInvalidaException($"Posição inválida. Linha:{pos.Linha}; Coluna:{pos.Coluna}");
+            }
         }
 
     }

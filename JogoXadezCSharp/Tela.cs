@@ -1,5 +1,6 @@
 ﻿using System;
 using Tabuleiro;
+using JogoXadrez;
 namespace JogoXadezCSharp
 {
     class Tela
@@ -8,17 +9,34 @@ namespace JogoXadezCSharp
         {
             for (int linha = 0 ; linha < tab.linhas; linha++)
             {
+                Console.Write($"{ 8 - linha} ");
                 for (int coluna = 0; coluna < tab.colunas; coluna++)
                 {
                     Peca resultado = tab.getPeca(linha, coluna);
                     if (resultado == null)
                     {
                         Console.Write("- ");
-                    } else { 
-                        Console.Write(resultado + " ");
+                    } else {
+                        Tela.imprimirPeca(resultado);
                     }
                 }
                 Console.WriteLine();
+            }
+            Console.WriteLine("  a b c d e f g h");
+        }
+
+        public static void imprimirPeca(Peca p)
+        {
+            if(p.cor == Cor.Branca)
+            {
+                Console.Write($"{p} ");
+            }
+            else
+            {
+                ConsoleColor old = Console.ForegroundColor;
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.Write($"{p} ");
+                Console.ForegroundColor = old;
             }
         }
     }
