@@ -8,13 +8,23 @@ namespace JogoXadezCSharp
     {
         static void Main(string[] args)
         {
-            try { 
-                Tabuleiro.Tabuleiro tab = new Tabuleiro.Tabuleiro(8, 8);
-                tab.setPeca(new Torre(tab, Cor.Preta), new Posicao(0,0));
-                tab.setPeca(new Torre(tab, Cor.Branca), new Posicao(1, 3));
-                Tela.imprimirTabuleiro(tab);
+            try {
+                JogoXadrez.PartidaDeXadrez partida = new JogoXadrez.PartidaDeXadrez();
+                while (!partida.terminada)
+                {
+                    Tela.imprimirTabuleiro(partida.tab);
 
-                Console.ReadKey();
+                    Console.WriteLine();
+                    Console.Write("Origem: ");
+                    Posicao origem = Tela.lerPosicaoXadrez().toPosicao();
+                    Console.Write("Destino: ");
+                    Posicao destino = Tela.lerPosicaoXadrez().toPosicao();
+
+                    partida.executaMovimento(origem, destino);
+                    Console.Clear();
+                }
+
+
             } catch (Tabuleiro.Exceptions.PosicaoInvalidaException error)
             {
                 Console.WriteLine(error.Message);

@@ -39,5 +39,13 @@ namespace JogoXadezCSharp
                 Console.ForegroundColor = old;
             }
         }
+
+        public static JogoXadrez.PosicaoXadrez lerPosicaoXadrez()
+        {
+            string s = Console.ReadLine();
+            char coluna = s[0];
+            int linha = int.Parse(s[1] + "");
+            return new JogoXadrez.PosicaoXadrez(coluna, linha);
+        }
     }
 }
