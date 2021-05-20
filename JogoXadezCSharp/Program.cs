@@ -12,20 +12,43 @@ namespace JogoXadezCSharp
                 JogoXadrez.PartidaDeXadrez partida = new JogoXadrez.PartidaDeXadrez();
                 while (!partida.terminada)
                 {
-                    Tela.imprimirTabuleiro(partida.tab);
+                    try { 
+                        Console.Clear();
+                        Tela.imprimirPartida(partida);
 
-                    Console.WriteLine();
-                    Console.Write("Origem: ");
-                    Posicao origem = Tela.lerPosicaoXadrez().toPosicao();
-                    Console.Write("Destino: ");
-                    Posicao destino = Tela.lerPosicaoXadrez().toPosicao();
+                        Console.WriteLine();
+                        
+                        Console.WriteLine($"Vez do jogador com as peças: {partida.getJogadorAtual()}");
 
-                    partida.executaMovimento(origem, destino);
-                    Console.Clear();
+                        Console.Write("Origem: ");
+                        Posicao origem = Tela.lerPosicaoXadrez().toPosicao();
+                        partida.validarPosicaoOrigem(origem);
+
+                        Console.Clear();                   
+                        bool[,] posicoesPossiveis = partida.tab.getPeca(origem).movimentosPossiveis();
+
+                        Tela.imprimirTabuleiro(partida.tab, posicoesPossiveis);
+                        Console.WriteLine();
+
+                        Console.Write("Destino: ");
+                        Posicao destino = Tela.lerPosicaoXadrez().toPosicao();
+                    
+                        partida.validarPosicaoDestino(origem, destino);
+                        partida.realizaJogada(origem, destino);
+                    } catch (PosicaoInvalidaException e)
+                    {
+                        Console.WriteLine(e.Message);
+                        Console.WriteLine("Pressione qualquer tecla para continuar.");
+                        Console.ReadKey();
+                    }
                 }
+                Console.Clear();
+                Tela.imprimirPartida(partida);
 
 
-            } catch (Tabuleiro.Exceptions.PosicaoInvalidaException error)
+
+            }
+            catch (Tabuleiro.Exceptions.PosicaoInvalidaException error)
             {
                 Console.WriteLine(error.Message);
             }
