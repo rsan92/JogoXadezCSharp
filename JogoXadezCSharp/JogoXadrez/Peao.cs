@@ -28,29 +28,29 @@ namespace JogoXadrez
         public override bool[,] movimentosPossiveis()
         {
             bool[,] matriz = new bool[tab.linhas, tab.colunas];
-            Posicao pos = this.posicao;
-
+            Posicao pos = new Posicao(0, 0);
+            
             if (cor == Cor.Branca)
             {
-                pos.setValores(pos.Linha - 1, pos.Coluna);
+                pos.setValores(posicao.Linha - 1, posicao.Coluna);
                 if (tab.posicaoValida(pos) && livre(pos))
                 {
                     matriz[pos.Linha, pos.Coluna] = true;
                 }
 
-                pos.setValores(pos.Linha - 2, pos.Coluna);
+                pos.setValores(posicao.Linha - 2, posicao.Coluna);
                 if (tab.posicaoValida(pos) && livre(pos) && QtdMovimentos == 0)
                 {
                     matriz[pos.Linha, pos.Coluna] = true;
                 }
 
-                pos.setValores(pos.Linha - 1, pos.Coluna -1);
+                pos.setValores(posicao.Linha - 1, posicao.Coluna -1);
                 if (tab.posicaoValida(pos) && existeInimigo(pos))
                 {
                     matriz[pos.Linha, pos.Coluna] = true;
                 }
 
-                pos.setValores(pos.Linha - 1, pos.Coluna + 1);
+                pos.setValores(posicao.Linha - 1, posicao.Coluna + 1);
                 if (tab.posicaoValida(pos) && existeInimigo(pos))
                 {
                     matriz[pos.Linha, pos.Coluna] = true;
@@ -58,25 +58,25 @@ namespace JogoXadrez
             }
             else
             {
-                pos.setValores(pos.Linha + 1, pos.Coluna);
+                pos.setValores(posicao.Linha + 1, posicao.Coluna);
                 if (tab.posicaoValida(pos) && livre(pos))
                 {
                     matriz[pos.Linha, pos.Coluna] = true;
                 }
 
-                pos.setValores(pos.Linha + 2, pos.Coluna);
+                pos.setValores(posicao.Linha + 2, posicao.Coluna);
                 if (tab.posicaoValida(pos) && livre(pos) && QtdMovimentos == 0)
                 {
                     matriz[pos.Linha, pos.Coluna] = true;
                 }
 
-                pos.setValores(pos.Linha + 1, pos.Coluna - 1);
+                pos.setValores(posicao.Linha + 1, posicao.Coluna - 1);
                 if (tab.posicaoValida(pos) && existeInimigo(pos))
                 {
                     matriz[pos.Linha, pos.Coluna] = true;
                 }
 
-                pos.setValores(pos.Linha + 1, pos.Coluna + 1);
+                pos.setValores(posicao.Linha + 1, posicao.Coluna + 1);
                 if (tab.posicaoValida(pos) && existeInimigo(pos))
                 {
                     matriz[pos.Linha, pos.Coluna] = true;
